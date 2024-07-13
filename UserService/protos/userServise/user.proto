@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+option go_package = "genproto/user";
+
+package user;
+
+service User {
+    rpc GetUserProfile(UserID) returns (UserProfileResponse);
+	rpc UpdateUserProfile(UserProfileUpdateRequest) returns (UserProfileUpdateResponse);
+	rpc FetchUserProfile(FetchUserProfileFilterRequest) returns (FetchUserProfileResponse);
+	rpc DeleteUserProfile(UserID) returns (DeleteUserResponse);
+	rpc resetPassword(UserEmail) returns (ResetPasswordResponse);
+
+}
+
+
+message UserID {
+	string user_id = 1;
+}
+
+message UserProfileResponse {
+	string user_id = 1;
+	string username = 2;
+	string email = 3;
+	string full_name = 4;
+	float eco_points = 5;
+	string created_at = 6;
+	string updated_at = 7;
+}
+
+message UserProfileUpdateRequest {
+	string user_id = 1;
+    string full_name = 2;
+    string bio = 3;
+}
+
+message UserProfileUpdateResponse {
+	string user_id = 1;
+    string username = 2;
+    string email = 3;
+    string full_name = 4;
+    string bio = 5;
+    string created_at = 7;
+    string updated_at = 8;
+}
+
+message FetchUserProfileFilterRequest {
+	int32 limit = 1;
+	int32 offset = 2;
+}
+
+message UserProfile {
+	string user_id = 1;
+	string username = 2;
+	string full_name = 3;
+	float eco_points = 4;
+}
+message FetchUserProfileResponse {
+    repeated UserProfile users = 1;
+    int32 total_count = 2;
+	int32 offset = 3;
+	int32 limit = 4;
+}
+
+message DeleteUserResponse {
+    string message = 1;
+}
+
+message UserEmail {
+    string email = 1;
+}
+
+message ResetPasswordResponse {
+    string message = 1;
+}
+
+message EcoPoints {
+	float points = 1;
+	string reason = 2;
+}
+
+message EcoPointsResponse {
+	string user_id = 1;
+	float eco_points = 2;
+	float points = 3;
+	string reason = 4;
+	string created_at = 5;
+	string updated_at = 6;
+}
